@@ -31,6 +31,8 @@ final class ArgumentNaming {
     
     static final String ARG_INPUT = "input";
     
+    static final String ARG_INPUTFILE = "inputfile";
+    
     static final String ARG_PASSWORD = "password";
     
     static final String ARG_ALGORITHM = "algorithm";

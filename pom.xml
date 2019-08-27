@@ -21,10 +21,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.melloware</groupId>
+	<groupId>com.prakashiit</groupId>
 	<artifactId>jasypt</artifactId>
 	<packaging>jar</packaging>
-	<version>1.9.4</version>
+	<version>1.10.0</version>
 	<name>JASYPT: Java Simplified Encryption</name>
 	<url>http://www.jasypt.org</url>
 
@@ -44,9 +44,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:git@github.com:melloware/jasypt.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:melloware/jasypt.git</developerConnection>
-		<url>https://github.com/melloware/jasypt</url>
+		<connection>scm:git:git@github.com:prakashiit/jasypt.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:prakashiit/jasypt.git</developerConnection>
+		<url>https://github.com/prakashiit/jasypt</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -63,6 +63,14 @@
 			<id>melloware</id>
 			<name>Melloware Inc</name>
 			<email>mellowaredev AT gmail.com</email>
+			<roles>
+				<role>Forker</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>prakashiit</id>
+			<name>Prakash Tiwari</name>
+			<email>prakashktiwari.15 AT gmail.com</email>
 			<roles>
 				<role>Forker</role>
 			</roles>
