@@ -35,6 +35,8 @@ final class ArgumentNaming {
     
     static final String ARG_PASSWORD = "password";
     
+    static final String ARG_DELIMITER = "delimiter";
+    
     static final String ARG_ALGORITHM = "algorithm";
     
     static final String ARG_ITERATIONS = "iterations";

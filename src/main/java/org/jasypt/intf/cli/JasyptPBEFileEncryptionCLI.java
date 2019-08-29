@@ -19,10 +19,10 @@
  */
 package org.jasypt.intf.cli;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
-import org.jasypt.intf.service.JasyptStatelessService;
+import org.jasypt.util.filehandler.AssignHandler;
+import org.jasypt.util.filehandler.FileHandler;
 import org.jasypt.util.filehandler.SimpleHandler;
 
 
@@ -35,7 +35,7 @@ import org.jasypt.util.filehandler.SimpleHandler;
  * command-line tools</b>.
  * </p>
  * 
- * @since 1.4
+ * @since 1.10
  * 
  * @author Prakash Tiwari
  *
@@ -57,6 +57,9 @@ public final class JasyptPBEFileEncryptionCLI {
      */
     private static final String[][] VALID_OPTIONAL_ARGUMENTS =
         new String[][] {
+    	new String [] {
+                ArgumentNaming.ARG_DELIMITER
+            },
     		new String [] {
                 ArgumentNaming.ARG_PASSWORD
             },
@@ -115,51 +118,24 @@ public final class JasyptPBEFileEncryptionCLI {
 
             CLIUtils.showEnvironment(verbose);
 
-            final JasyptStatelessService service = new JasyptStatelessService();
-
             final String inputFile = argumentValues.getProperty(ArgumentNaming.ARG_INPUTFILE);
-
+            
             CLIUtils.showArgumentDescription(argumentValues, verbose);
             
-            SimpleHandler handler = new SimpleHandler();
+            final FileHandler handler;
+            final String outputPath;
             
-            ArrayList <String> inputList = handler.getListFromSimpleFile(inputFile);
-            ArrayList <String> encryptedList = new ArrayList<String>();
-            
-            for(String input: inputList) {
-            	String result =
-    	                service.encrypt(
-    	                        input, 
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_PASSWORD),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_ALGORITHM),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_KEY_OBTENTION_ITERATIONS),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_SALT_GENERATOR_CLASS_NAME),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_PROVIDER_NAME),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_PROVIDER_CLASS_NAME),
-    	                        null,
-    	                        null,
-    	                        argumentValues.getProperty(ArgumentNaming.ARG_STRING_OUTPUT_TYPE),
-    	                        null,
-    	                        null);
-    	            
-    	            encryptedList.add(result);
+            if(argumentValues.containsKey("delimiter")) {
+            	handler = AssignHandler.assign(argumentValues.getProperty("delimiter"));
+            	outputPath = handler.encryptFile(inputFile, argumentValues);
             }
-            String path = handler.writeListToSimpleFile(encryptedList);
-            String output = "The encrypted values are written in: " + path;
+            else {
+            	handler = new SimpleHandler();
+            	outputPath = handler.encryptFile(inputFile, argumentValues);
+            }
+            String output = "The encrypted values are written in: " + outputPath;
             
             CLIUtils.showOutput(output, verbose);
-            
-            
 
         } catch (Throwable t) {
             CLIUtils.showError(t, verbose);

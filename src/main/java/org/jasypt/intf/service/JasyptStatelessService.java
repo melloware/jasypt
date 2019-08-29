@@ -19,6 +19,7 @@
  */
 package org.jasypt.intf.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.jasypt.commons.CommonUtils;
 import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.digest.config.EnvironmentStringDigesterConfig;
@@ -56,6 +57,8 @@ public final class JasyptStatelessService {
         super();
     }
     
+    private String randomString = RandomStringUtils.randomAlphanumeric(12);
+    private boolean displayed = false;
 
     /**
      * <p>
@@ -397,6 +400,13 @@ public final class JasyptStatelessService {
         }
         if (password != null) {
             config.setPassword(password);
+        }
+        else {
+        	config.setPassword(randomString);
+        	if(!displayed) {
+        		displayed = true;
+        		System.out.println("No password provided. The generated password is: " + this.randomString);
+        	}
         }
         
         if (saltGeneratorClassNameEnvName != null) {
