@@ -24,7 +24,7 @@
 	<groupId>com.melloware</groupId>
 	<artifactId>jasypt</artifactId>
 	<packaging>jar</packaging>
-	<version>1.10.0</version>
+	<version>1.10.1</version>
 	<name>JASYPT: Java Simplified Encryption</name>
 	<url>http://www.jasypt.org</url>
 

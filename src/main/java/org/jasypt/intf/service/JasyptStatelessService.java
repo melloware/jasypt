@@ -59,6 +59,7 @@ public final class JasyptStatelessService {
     
     private String randomString = RandomStringUtils.randomAlphanumeric(12);
     private boolean displayed = false;
+    private String defaultAlgorithm = "PBEWithHMACSHA256AndAES_256";
 
     /**
      * <p>
@@ -165,6 +166,9 @@ public final class JasyptStatelessService {
         }
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
+        }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
         }
         
         if (iterationsEnvName != null) {
@@ -379,6 +383,9 @@ public final class JasyptStatelessService {
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
         }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
+        }
         
         if (keyObtentionIterationsEnvName != null) {
             config.setKeyObtentionIterationsEnvName(
@@ -530,6 +537,9 @@ public final class JasyptStatelessService {
         }
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
+        }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
         }
         
         if (keyObtentionIterationsEnvName != null) {

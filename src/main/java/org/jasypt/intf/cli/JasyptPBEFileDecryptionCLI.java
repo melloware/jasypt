@@ -40,7 +40,7 @@ import org.jasypt.util.filehandler.SimpleHandler;
  * @author Prakash Tiwari
  *
  */
-public final class JasyptPBEFileEncryptionCLI {
+public final class JasyptPBEFileDecryptionCLI {
     
     /*
      * The required arguments for this CLI operation.
@@ -49,6 +49,9 @@ public final class JasyptPBEFileEncryptionCLI {
         new String[][] {
             new String [] {
                 ArgumentNaming.ARG_INPUTFILE
+            },
+    		new String [] {
+                ArgumentNaming.ARG_PASSWORD
             }
         };
     
@@ -59,9 +62,6 @@ public final class JasyptPBEFileEncryptionCLI {
         new String[][] {
     	new String [] {
                 ArgumentNaming.ARG_DELIMITER
-            },
-    		new String [] {
-                ArgumentNaming.ARG_PASSWORD
             },
             new String [] {
                 ArgumentNaming.ARG_VERBOSE
@@ -127,15 +127,15 @@ public final class JasyptPBEFileEncryptionCLI {
             
             if(argumentValues.containsKey("delimiter")) {
             	handler = AssignHandler.assign(argumentValues);
-            	outputPath = handler.encryptFile(inputFile, argumentValues);
+            	outputPath = handler.decryptFile(inputFile, argumentValues);
             }
             else {
             	handler = new SimpleHandler();
-            	outputPath = handler.encryptFile(inputFile, argumentValues);
+            	outputPath = handler.decryptFile(inputFile, argumentValues);
             }
             
             if (outputPath != null) {
-            	String output = "The encrypted values are written in: " + outputPath;
+            	String output = "The decrypted values are written in: " + outputPath;
             	CLIUtils.showOutput(output, verbose);
             }
 
@@ -149,7 +149,7 @@ public final class JasyptPBEFileEncryptionCLI {
     /*
      * Instantiation is forbidden.
      */
-    private JasyptPBEFileEncryptionCLI() {
+    private JasyptPBEFileDecryptionCLI() {
         super();
     }
     
