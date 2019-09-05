@@ -14,8 +14,7 @@ import YamlEventHandlers.EventDecryptionHandler;
 import YamlEventHandlers.EventEncryptionHandler;
 
 public class YamlFileHandler implements FileHandler{
-//	String location = System.getProperty("user.dir") + "/";
-	String location = "/Users/prakash.tiwari/Desktop/";
+	String location = System.getProperty("user.dir") + "/";
 	
 	public String encryptFile(String fileName, Properties argumentValues) throws Exception{
 		
