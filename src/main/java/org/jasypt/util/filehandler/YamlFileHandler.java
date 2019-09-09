@@ -1,12 +1,9 @@
 package org.jasypt.util.filehandler;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.jasypt.intf.cli.JasyptEncryptorUtil;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.events.Event;
 

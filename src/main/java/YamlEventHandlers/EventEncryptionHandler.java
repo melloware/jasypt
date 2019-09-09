@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.jasypt.intf.cli.JasyptEncryptorUtil;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.emitter.Emitter;
 import org.yaml.snakeyaml.events.*;
@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.events.*;
 public class EventEncryptionHandler {
 	
 	private EventEncryptor eventEncryptor = new EventEncryptor();
-	
+	private JasyptEncryptorUtil encryptor;
 	private Iterator <Event> eventItr;
 	private Event currentEvent;
 	private Emitter emitter;
@@ -27,6 +27,7 @@ public class EventEncryptionHandler {
 	}
 	
 	public EventEncryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException {
+		this.encryptor = new JasyptEncryptorUtil(argumentValues);
 		this.eventItr = eventItr;
 		this.argumentValues = argumentValues;
 		outputPath = location + "output.yml";
@@ -112,7 +113,7 @@ public class EventEncryptionHandler {
 			while(!(currentEvent instanceof MappingEndEvent)) {
 				if(currentEvent instanceof ScalarEvent) {
 					if(isValue) {
-						currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues);
+						currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues, encryptor);
 						isValue = false;
 					}
 					else {
@@ -144,7 +145,7 @@ public class EventEncryptionHandler {
 			currentEvent = eventItr.next();
 			while (!(currentEvent instanceof SequenceEndEvent)) {
 				if(currentEvent instanceof ScalarEvent) { 
-					currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues);
+					currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues, encryptor);
 					emitter.emit(currentEvent);
 					currentEvent = eventItr.next();
 				}
