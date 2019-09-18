@@ -1,4 +1,4 @@
-package YamlEventHandlers;
+package org.jasypt.util.YamlEventHandlers;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,9 +10,9 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.emitter.Emitter;
 import org.yaml.snakeyaml.events.*;
 
-public class EventEncryptionHandler {
+public class EventDecryptionHandler {
 	
-	private EventEncryptor eventEncryptor = new EventEncryptor();
+	private EventDecryptor eventDecryptor = new EventDecryptor();
 	private JasyptEncryptorUtil encryptor;
 	private Iterator <Event> eventItr;
 	private Event currentEvent;
@@ -26,11 +26,11 @@ public class EventEncryptionHandler {
 		else return null;
 	}
 	
-	public EventEncryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException {
+	public EventDecryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException {
 		this.encryptor = new JasyptEncryptorUtil(argumentValues);
 		this.eventItr = eventItr;
 		this.argumentValues = argumentValues;
-		outputPath = location + "output.yml";
+		outputPath = location + "decryptedOutput.yml";
 		FileWriter outputFile=new FileWriter(outputPath);
         this.emitter = new Emitter(outputFile, new DumperOptions());
 		
@@ -112,8 +112,8 @@ public class EventEncryptionHandler {
 			boolean isValue = false;
 			while(!(currentEvent instanceof MappingEndEvent)) {
 				if(currentEvent instanceof ScalarEvent) {
-					if(isValue) {
-						currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues, encryptor);
+					if(isValue) { 
+						currentEvent = eventDecryptor.decryptValueInScalarEvent(currentEvent, argumentValues, encryptor); 
 						isValue = false;
 					}
 					else {
@@ -144,8 +144,8 @@ public class EventEncryptionHandler {
 			emitter.emit(currentEvent);
 			currentEvent = eventItr.next();
 			while (!(currentEvent instanceof SequenceEndEvent)) {
-				if(currentEvent instanceof ScalarEvent) { 
-					currentEvent = eventEncryptor.encryptValueInScalarEvent(currentEvent, argumentValues, encryptor);
+				if(currentEvent instanceof ScalarEvent) {
+					currentEvent = eventDecryptor.decryptValueInScalarEvent(currentEvent, argumentValues, encryptor); 
 					emitter.emit(currentEvent);
 					currentEvent = eventItr.next();
 				}
@@ -166,4 +166,5 @@ public class EventEncryptionHandler {
 	public void collectionHandler() {
 		
 	}
+
 }

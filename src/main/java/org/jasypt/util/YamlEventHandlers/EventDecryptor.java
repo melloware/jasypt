@@ -1,4 +1,4 @@
-package YamlEventHandlers;
+package org.jasypt.util.YamlEventHandlers;
 
 import java.util.Properties;
 

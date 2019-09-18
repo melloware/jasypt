@@ -4,11 +4,11 @@ import java.io.FileReader;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.jasypt.util.YamlEventHandlers.EventDecryptionHandler;
+import org.jasypt.util.YamlEventHandlers.EventEncryptionHandler;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.events.Event;
 
-import YamlEventHandlers.EventDecryptionHandler;
-import YamlEventHandlers.EventEncryptionHandler;
 
 public class YamlFileHandler implements FileHandler{
 	String location = System.getProperty("user.dir") + "/";
