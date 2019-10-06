@@ -55,7 +55,6 @@ public final class JasyptStatelessService {
     public JasyptStatelessService() {
         super();
     }
-    
 
     /**
      * <p>

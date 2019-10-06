@@ -24,7 +24,7 @@
 	<groupId>com.melloware</groupId>
 	<artifactId>jasypt</artifactId>
 	<packaging>jar</packaging>
-	<version>1.9.4</version>
+	<version>1.10.0</version>
 	<name>JASYPT: Java Simplified Encryption</name>
 	<url>http://www.jasypt.org</url>
 
@@ -63,6 +63,14 @@
 			<id>melloware</id>
 			<name>Melloware Inc</name>
 			<email>mellowaredev AT gmail.com</email>
+			<roles>
+				<role>Forker</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>prakashiit</id>
+			<name>Prakash Tiwari</name>
+			<email>prakashktiwari.15 AT gmail.com</email>
 			<roles>
 				<role>Forker</role>
 			</roles>
@@ -312,6 +320,18 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.yaml</groupId>
+		    <artifactId>snakeyaml</artifactId>
+		    <version>1.25</version>
 		</dependency>
 	</dependencies>
 
