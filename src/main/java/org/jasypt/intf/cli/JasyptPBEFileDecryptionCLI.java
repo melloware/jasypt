@@ -122,17 +122,8 @@ public final class JasyptPBEFileDecryptionCLI {
             
             CLIUtils.showArgumentDescription(argumentValues, verbose);
             
-            final FileHandler handler;
-            final String outputPath;
-            
-            if(argumentValues.containsKey("delimiter")) {
-            	handler = AssignHandler.assign(argumentValues);
-            	outputPath = handler.decryptFile(inputFile, argumentValues);
-            }
-            else {
-            	handler = new SimpleHandler();
-            	outputPath = handler.decryptFile(inputFile, argumentValues);
-            }
+            final FileHandler handler = AssignHandler.assign(argumentValues);
+            final String outputPath = handler.decryptFile(inputFile, argumentValues);
             
             if (outputPath != null) {
             	String output = "The decrypted values are written in: " + outputPath;

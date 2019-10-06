@@ -5,8 +5,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Properties;
 
+import org.apache.commons.io.FilenameUtils;
 import org.jasypt.intf.cli.JasyptEncryptorUtil;
 
+/**
+ * This class will handle encryption/decryption of simple files.</br>
+ * Encryption/Decryption is done on a line-by-line basis and the whole line is encrypted.
+ * <b>This class is for internal use only</b>.
+ * 
+ * @author prakash.tiwari
+ * 
+ */
 public class SimpleHandler implements FileHandler {
 	String location = System.getProperty("user.dir") + "/";
 	
@@ -16,7 +25,10 @@ public class SimpleHandler implements FileHandler {
 		String path = location + fileName;
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
-		path = location + "output.txt";
+		String fileType = FilenameUtils.getExtension(fileName);
+		String dot = (fileType.length()> 0)?("."):("");
+		String output = "output"+ dot + fileType;
+		path = location + output;
 		FileWriter outputFile = new FileWriter(path);
 		
 		String line = reader.readLine();
@@ -43,7 +55,10 @@ public class SimpleHandler implements FileHandler {
 		String path = location + fileName;
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		
-		path = location + "DecryptedOutput.txt";
+		String fileType = FilenameUtils.getExtension(fileName);
+		String dot = (fileType.length()> 0)?("."):("");
+		String output = "decryptedOutput"+ dot + fileType;
+		path = location + output;
 		FileWriter outputFile = new FileWriter(path);
 		
 		String line = reader.readLine();

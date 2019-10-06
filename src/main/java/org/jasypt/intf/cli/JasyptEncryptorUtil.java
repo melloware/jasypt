@@ -5,6 +5,14 @@ import java.util.Properties;
 import org.jasypt.intf.cli.ArgumentNaming;
 import org.jasypt.intf.service.JasyptStatelessService;
 
+/**
+ * Utility to ease encryption/decryption in classes which use JasyptStatelessService for that purpose.
+ * This is just a wrapper over JasyptStatelessService to promote code reuse and reduce code size.
+ * <b>This class is for internal use only</b>.
+ * 
+ * @author prakash.tiwari
+ *
+ */
 public class JasyptEncryptorUtil {
 	private String password = null;
 	private String algorithm = null;

@@ -49,6 +49,9 @@ public final class JasyptPBEFileEncryptionCLI {
         new String[][] {
             new String [] {
                 ArgumentNaming.ARG_INPUTFILE
+            },
+    		new String [] {
+                ArgumentNaming.ARG_PASSWORD
             }
         };
     
@@ -59,9 +62,6 @@ public final class JasyptPBEFileEncryptionCLI {
         new String[][] {
     	new String [] {
                 ArgumentNaming.ARG_DELIMITER
-            },
-    		new String [] {
-                ArgumentNaming.ARG_PASSWORD
             },
             new String [] {
                 ArgumentNaming.ARG_VERBOSE
@@ -122,17 +122,8 @@ public final class JasyptPBEFileEncryptionCLI {
             
             CLIUtils.showArgumentDescription(argumentValues, verbose);
             
-            final FileHandler handler;
-            final String outputPath;
-            
-            if(argumentValues.containsKey("delimiter")) {
-            	handler = AssignHandler.assign(argumentValues);
-            	outputPath = handler.encryptFile(inputFile, argumentValues);
-            }
-            else {
-            	handler = new SimpleHandler();
-            	outputPath = handler.encryptFile(inputFile, argumentValues);
-            }
+            final FileHandler handler = AssignHandler.assign(argumentValues);
+            final String outputPath = handler.encryptFile(inputFile, argumentValues);
             
             if (outputPath != null) {
             	String output = "The encrypted values are written in: " + outputPath;

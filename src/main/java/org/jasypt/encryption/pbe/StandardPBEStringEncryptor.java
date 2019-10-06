@@ -742,15 +742,15 @@ public final class StandardPBEStringEncryptor implements PBEStringCleanablePassw
             return new String(message, MESSAGE_CHARSET);
         
         } catch (EncryptionInitializationException e) {
-        	System.out.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
+        	System.err.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
             throw e;
         } catch (EncryptionOperationNotPossibleException e) {
-        	System.out.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
+        	System.err.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
             throw e;
         } catch (Exception e) {
             // If decryption fails, it is more secure not to return any 
             // information about the cause in nested exceptions. Simply fail.
-        	System.out.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
+        	System.err.println("Error while decrypting the following message: \"" + encryptedMessage + "\"");
             throw new EncryptionOperationNotPossibleException();
         }
 

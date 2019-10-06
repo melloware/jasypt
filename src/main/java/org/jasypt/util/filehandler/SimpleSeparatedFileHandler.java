@@ -9,15 +9,18 @@ import org.apache.commons.io.FilenameUtils;
 import org.jasypt.commons.CommonUtils;
 import org.jasypt.intf.cli.JasyptEncryptorUtil;
 
-
-
+/**
+ * This class will handle encryption/decryption of delimiter separated files.
+ * Encryption/Decryption will be done on a line-by-line basis. Only the text after the delimiter will be considered for encryption/decryption.
+ * For lines where delimiter isn't present or there is no text after delimiter, we'll skip such lines.
+ * <b>This class is for internal use only</b>.
+ * 
+ * @author prakash.tiwari
+ *
+ */
 public class SimpleSeparatedFileHandler implements FileHandler{
 	String location = System.getProperty("user.dir") + "/";
 	
-	/*
-	 * For lines where delimiter isn't present or there is no text after delimiter,
-	 * we'll skip such lines.
-	 */
 	public String encryptFile(String fileName, Properties argumentValues) throws Exception{
 		JasyptEncryptorUtil encryptor = new JasyptEncryptorUtil(argumentValues);
 		
@@ -57,6 +60,9 @@ public class SimpleSeparatedFileHandler implements FileHandler{
 		return path;
 	}
 	
+	/**
+	 * Encrypted values must be prefixed with "ENC(" and suffixed with ")"
+	 */
 	public String decryptFile(String fileName, Properties argumentValues) throws Exception{
 		JasyptEncryptorUtil encryptor = new JasyptEncryptorUtil(argumentValues);
 		
@@ -77,7 +83,7 @@ public class SimpleSeparatedFileHandler implements FileHandler{
 				String key = CommonUtils.substringBefore(line, delimiter);
 				String value = CommonUtils.substringAfter(line, delimiter);
 				value = value.trim();
-				if(value.length()>0) value = unwrap(key, value);
+				if(value.length()>0) value = unwrap(value);
 				if(value.length()>0) {
 					String decryptedValue = encryptor.decrypt(value);
 					outputFile.write(key + delimiter + decryptedValue + "\n");
@@ -97,19 +103,19 @@ public class SimpleSeparatedFileHandler implements FileHandler{
 		return path;
 	}
 	
-	private String unwrap(String key, String val){
-		Exception exception = new Exception();
-		try {
-			if(val.length() < 5 || !val.substring(0, 4).equals("ENC(") || !val.substring(val.length() - 1).equals(")")) {
-				throw exception;
-			}
-			String unwrapped = val.substring(4, val.length() - 1);
-			return unwrapped;
-		}
-		catch(Exception e) {
-			System.out.println("Ill formatted string recieved for decryption: \""+ val + "\" for key \"" + key + "\"."
+	/**
+	 * Utility method to remove "ENC()" from a wrapped encrypted string
+	 * 
+	 * @param val
+	 * @return
+	 */
+	private String unwrap(String val){
+		if(val.length() < 5 || !val.substring(0, 4).equals("ENC(") || !val.substring(val.length() - 1).equals(")")) {
+			System.out.println("Ill formatted string recieved for decryption: \""+ val + "\"."
 					+ "Please note that the encrypted value must be prefixed with \"ENC(\" and suffixed with \")\"");
 			return val;
 		}
+		String unwrapped = val.substring(4, val.length() - 1);
+		return unwrapped;
 	}
 }
